@@ -575,18 +575,18 @@
         <div class="section-num">3</div>
         <div class="section-label" id="s3-title">Consentimiento y firma</div>
       </div>
-      <div style="display:flex;gap:12px;align-items:flex-start;">
-        <input type="checkbox" id="gdpr" style="width:18px;height:18px;flex-shrink:0;margin-top:2px;cursor:pointer;">
-        <label for="gdpr" style="text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);line-height:1.6;cursor:pointer;" id="gdpr-label">
-          He leído y acepto el tratamiento de mis datos personales de acuerdo con el Reglamento General de Protección de Datos (RGPD). Los datos serán utilizados exclusivamente para el registro obligatorio de viajeros exigido por la normativa española.
-        </label>
-      </div>
+      <label for="gdpr" style="display:flex;gap:14px;align-items:flex-start;background:#f0f5ff;border:2px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--sea-mid)'" onmouseout="this.style.borderColor='var(--border)'">
+        <input type="checkbox" id="gdpr" style="width:20px;height:20px;min-width:20px;flex-shrink:0;margin-top:1px;cursor:pointer;accent-color:var(--sea);">
+        <span style="text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);line-height:1.6;" id="gdpr-label">
+          He leído y acepto el tratamiento de mis datos personales de acuerdo con el Reglamento General de Protección de Datos (RGPD). Los datos serán utilizados exclusivamente para el registro obligatorio de viajeros exigido por la normativa española (RD 933/2021, en vigor desde enero de 2025).
+        </span>
+      </label>
     </div>
 
     <div class="submit-area">
       <div class="support-contact">
         <span id="support-label">¿Necesita ayuda?</span>
-        <a href="mailto:almarapartamento@gmail.com">almarapartamento@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#6a0b06070b180b1a0b181e0b070f041e052a0d070b030644090507"><span class="__cf_email__" data-cfemail="12737e7f73607362736066737f777c667d52757f737b7e3c717d7f">[email&#160;protected]</span></a>
       </div>
       <div class="privacy-note" id="privacy-note">
         Sus datos se transmiten de forma segura y se utilizan únicamente para cumplir con la obligación legal de registro de viajeros (RD 933/2021).
@@ -613,7 +613,7 @@
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── TRANSLATIONS ───────────────────────────────────────────────────────────
 const T = {
   es: {
@@ -809,7 +809,21 @@ function guestPanelHTML(i, t, saved) {
       </div>
       <div class="field-group">
         <label>${t.dob} *</label>
-        <input type="date" id="g${i}-dob" value="${v('dob')}" required>
+        <div style="display:grid;grid-template-columns:2fr 2fr 3fr;gap:8px;" id="g${i}-dob-wrap">
+          <select id="g${i}-dob-d" style="font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 10px;border:1.5px solid var(--border);border-radius:7px;background:var(--white);color:var(--ink);appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7f8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;" onchange="updateDob(${i})">
+            <option value="">DD</option>
+            ${Array.from({length:31},(_,k)=>k+1).map(d=>\`<option value="\${String(d).padStart(2,'0')}">\${String(d).padStart(2,'0')}</option>\`).join('')}
+          </select>
+          <select id="g${i}-dob-m" style="font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 10px;border:1.5px solid var(--border);border-radius:7px;background:var(--white);color:var(--ink);appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7f8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;" onchange="updateDob(${i})">
+            <option value="">MM</option>
+            ${['01','02','03','04','05','06','07','08','09','10','11','12'].map((m,idx)=>\`<option value="\${m}">\${m}</option>\`).join('')}
+          </select>
+          <select id="g${i}-dob-y" style="font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 10px;border:1.5px solid var(--border);border-radius:7px;background:var(--white);color:var(--ink);appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7f8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;" onchange="updateDob(${i})">
+            <option value="">AAAA</option>
+            ${Array.from({length:100},(_,k)=>new Date().getFullYear()-k).map(y=>\`<option value="\${y}">\${y}</option>\`).join('')}
+          </select>
+        </div>
+        <input type="hidden" id="g${i}-dob" value="${v('dob')}">
       </div>
       <div class="field-group">
         <label>${t.docType} *</label>
@@ -943,7 +957,13 @@ function submitForm() {
       firstName: document.getElementById(`g${i}-firstname`)?.value || '',
       lastName1: document.getElementById(`g${i}-lastname1`)?.value || '',
       lastName2: document.getElementById(`g${i}-lastname2`)?.value || '',
-      dob: document.getElementById(`g${i}-dob`)?.value || '',
+      dob: (()=>{
+        const d=document.getElementById(`g${i}-dob-d`)?.value;
+        const m=document.getElementById(`g${i}-dob-m`)?.value;
+        const y=document.getElementById(`g${i}-dob-y`)?.value;
+        if(d&&m&&y) return `${y}-${m}-${d}`;
+        return document.getElementById(`g${i}-dob`)?.value||'';
+      })(),
       docType: document.getElementById(`g${i}-doctype`)?.value || '',
       docNum: document.getElementById(`g${i}-docnum`)?.value || '',
       docSupport: document.getElementById(`g${i}-support`)?.value || '',
@@ -959,17 +979,63 @@ function submitForm() {
     data.guests.push(g);
   }
 
-  console.log('ALMAR Guest Registration Data:', JSON.stringify(data, null, 2));
+  // Build readable object for Formspree
+  const formspreeData = {
+    'Check-in': data.checkin,
+    'Check-out': data.checkout,
+    'Numero de huespedes': data.numGuests,
+  };
+  data.guests.forEach((g, i) => {
+    const label = i === 0 ? 'Titular' : 'Huesped ' + (i + 1);
+    formspreeData[label + ' - Nombre'] = g.firstName + ' ' + g.lastName1 + ' ' + (g.lastName2 || '');
+    formspreeData[label + ' - Nacimiento'] = g.dob;
+    formspreeData[label + ' - Documento'] = g.docType + ': ' + g.docNum;
+    formspreeData[label + ' - Nacionalidad'] = g.nationality;
+    if (g.phone) formspreeData[label + ' - Telefono'] = g.phone;
+    if (g.email) formspreeData[label + ' - Email'] = g.email;
+    formspreeData[label + ' - Direccion'] = g.address + ', ' + g.city + ' ' + (g.postal||'') + ', ' + g.country;
+  });
 
-  // TODO: POST to management app endpoint when available
-  // fetch('/api/registrations', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) })
+  const btn = document.getElementById('btn-submit');
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = lang === 'es' ? 'Enviando...' : 'Sending...';
 
-  // Show success
-  document.getElementById('form-content').style.display = 'none';
-  const ss = document.getElementById('success-screen');
-  ss.classList.add('visible');
-  document.getElementById('success-title').textContent = t.successTitle;
-  document.getElementById('success-msg').innerHTML = t.successMsg.replace('\n', '<br>');
+  fetch('https://formspree.io/f/mqeydgaq', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(formspreeData)
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.ok || result.next) {
+      document.getElementById('form-content').style.display = 'none';
+      const ss = document.getElementById('success-screen');
+      ss.classList.add('visible');
+      document.getElementById('success-title').textContent = t.successTitle;
+      document.getElementById('success-msg').innerHTML = t.successMsg.replace('\n', '<br>');
+    } else {
+      btn.disabled = false;
+      btn.textContent = origText;
+      alert(lang === 'es' ? 'Error al enviar. Intentelo de nuevo.' : 'Error sending. Please try again.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = origText;
+    alert(lang === 'es' ? 'Error de conexion. Compruebe su internet.' : 'Connection error. Check your internet.');
+  });
+}
+
+// ─── DOB SELECTORS ───────────────────────────────────────────────────────────
+function updateDob(i) {
+  const d = document.getElementById(\`g\${i}-dob-d\`)?.value;
+  const m = document.getElementById(\`g\${i}-dob-m\`)?.value;
+  const y = document.getElementById(\`g\${i}-dob-y\`)?.value;
+  const hidden = document.getElementById(\`g\${i}-dob\`);
+  if (hidden && d && m && y) {
+    hidden.value = \`\${y}-\${m}-\${d}\`;
+  }
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
@@ -978,11 +1044,4 @@ applyTranslations();
 
 // Set min dates
 const today = new Date().toISOString().split('T')[0];
-document.getElementById('checkin').min = today;
-document.getElementById('checkout').min = today;
-document.getElementById('checkin').addEventListener('change', function() {
-  document.getElementById('checkout').min = this.value;
-});
-</script>
-</body>
-</html>
+d
